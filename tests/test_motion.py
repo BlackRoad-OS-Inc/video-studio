@@ -8,13 +8,15 @@ from motion_library import (
     ease_in_expo, ease_out_expo,
     ease_in_sine, ease_out_sine,
     ease_in_back, ease_out_back,
-    ease_out_bounce, ease_in_bounce,
-    ease_out_elastic, ease_in_elastic,
+    ease_out_bounce, ease_in_bounce, ease_in_out_bounce,
+    ease_out_elastic, ease_in_elastic, ease_in_out_elastic,
+    ease_in_quart, ease_out_quart, ease_in_out_quart,
     spring, cubic_bezier, EASE, EASE_IN, EASE_OUT, EASE_IN_OUT,
     EASINGS, Keyframe, Timeline, PRESETS,
     serialize_to_css, serialize_to_js, serialize_to_framer_motion,
     sample_easing, easing_to_svg_path, get_preset, list_presets,
     _js_ident,
+    _easing_to_css,
 )
 
 
@@ -225,3 +227,99 @@ def test_svg_path_output():
     assert "<svg" in svg
     assert "<path" in svg
     assert 'fill="none"' in svg
+
+
+# ── Production-level regression tests ────────────────────────────────────────
+
+def test_js_infinite_iterations_is_not_quoted_string():
+    """serialize_to_js must output JS numeric Infinity, not the string "Infinity"."""
+    tl = get_preset("pulse")  # iterations == inf
+    js = serialize_to_js(tl)
+    assert "iterations: Infinity" in js
+    assert 'iterations: "Infinity"' not in js
+
+
+def test_framer_motion_infinite_repeat_is_not_quoted_string():
+    """serialize_to_framer_motion must output Infinity literal, not JSON string."""
+    tl = get_preset("spin")  # iterations == inf
+    fm = serialize_to_framer_motion(tl)
+    assert '"Infinity"' not in fm
+    assert "Infinity" in fm
+
+
+def test_easings_registry_no_missing_entries():
+    """All implemented easing functions must be reachable by name."""
+    expected = [
+        "ease-in-out-bounce", "ease-in-out-elastic",
+        "ease-in-quart", "ease-out-quart", "ease-in-out-quart",
+    ]
+    for name in expected:
+        assert name in EASINGS, f"'{name}' missing from EASINGS registry"
+
+
+def test_easings_registry_no_duplicate_keys():
+    """EASINGS must not silently discard any entry via a duplicate key."""
+    seen: set = set()
+    # Reconstruct from source to catch any duplicates Python would collapse
+    import ast, inspect, motion_library as ml
+    src = inspect.getsource(ml)
+    # Find the EASINGS dict literal block and count how many times each key appears
+    import re
+    keys_in_src = re.findall(r'"(ease-[^"]+|linear|spring)":\s+\w', src)
+    from collections import Counter
+    dupes = [k for k, v in Counter(keys_in_src).items() if v > 1]
+    assert dupes == [], f"Duplicate EASINGS source keys: {dupes}"
+
+
+def test_easing_to_css_returns_valid_css_for_all_easings():
+    """_easing_to_css must never return a raw non-CSS easing name."""
+    VALID_CSS_KEYWORDS = {"linear", "ease", "ease-in", "ease-out", "ease-in-out"}
+    for name in EASINGS:
+        css_val = _easing_to_css(name)
+        is_keyword = css_val in VALID_CSS_KEYWORDS
+        is_cubic_bezier = css_val.startswith("cubic-bezier(")
+        is_steps = css_val.startswith("steps(")
+        assert is_keyword or is_cubic_bezier or is_steps, (
+            f"_easing_to_css('{name}') returned invalid CSS: '{css_val}'"
+        )
+
+
+def test_timeline_invalid_duration_raises():
+    with pytest.raises(ValueError, match="duration"):
+        Timeline(id="x", name="x", duration=0)
+
+
+def test_timeline_invalid_iterations_raises():
+    with pytest.raises(ValueError, match="iterations"):
+        Timeline(id="x", name="x", duration=100, iterations=-1)
+
+
+def test_add_keyframe_offset_out_of_range_raises():
+    tl = Timeline(id="x", name="x", duration=100)
+    with pytest.raises(ValueError, match="offset"):
+        tl.add_keyframe(1.5, {"opacity": 1})
+
+
+def test_add_keyframe_empty_props_raises():
+    tl = Timeline(id="x", name="x", duration=100)
+    with pytest.raises(ValueError, match="props"):
+        tl.add_keyframe(0.0, {})
+
+
+def test_ease_in_out_bounce_at_boundaries():
+    assert abs(ease_in_out_bounce(0.0)) < 0.01
+    assert abs(ease_in_out_bounce(1.0) - 1.0) < 0.01
+
+
+def test_ease_in_out_elastic_at_boundaries():
+    assert abs(ease_in_out_elastic(0.0)) < 0.01
+    assert abs(ease_in_out_elastic(1.0) - 1.0) < 0.01
+
+
+def test_ease_in_quart_concave():
+    assert ease_in_quart(0.25) < ease_in_cubic(0.25)  # quart slower than cubic
+
+
+def test_ease_out_quart_at_boundaries():
+    assert abs(ease_out_quart(0.0)) < 0.01
+    assert abs(ease_out_quart(1.0) - 1.0) < 0.01

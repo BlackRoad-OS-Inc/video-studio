@@ -3,6 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; img-src 'self' data: https:; connect-src 'self'; frame-ancestors 'none'">
+    <meta name="description" content="Video Studio by BlackRoad — professional video editing for creators. Timeline editing, AI auto-captions, 100+ transitions, 4K export. Try free for 14 days.">
+    <meta name="keywords" content="video editor, video studio, AI captions, timeline editing, 4K export, BlackRoad">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#FF1D6C">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Video Studio — Creator Video Editor | BlackRoad">
+    <meta property="og:description" content="Professional video editing for creators. AI captions, 100+ transitions, 4K export. Start free today.">
+    <meta property="og:url" content="https://blackroad.studio">
+    <meta property="og:site_name" content="BlackRoad Video Studio">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Video Studio — Creator Video Editor | BlackRoad">
+    <meta name="twitter:description" content="Professional video editing for creators. AI captions, 100+ transitions, 4K export. Start free today.">
     <title>Video Studio - Creator Video Editor | BlackRoad</title>
     <style>
         :root {
@@ -372,29 +387,51 @@
                 grid-template-columns: 1fr;
             }
         }
+        .skip-nav {
+            position: absolute;
+            left: -9999px;
+            top: auto;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        .skip-nav:focus {
+            position: static;
+            width: auto;
+            height: auto;
+            overflow: visible;
+            margin: 8px;
+            padding: 8px 16px;
+            background: var(--hot-pink);
+            color: var(--white);
+            border-radius: 4px;
+            z-index: 100;
+        }
     </style>
 </head>
 <body>
+    <a class="skip-nav" href="#main-content">Skip to main content</a>
     <!-- Animated background -->
-    <div class="grid-bg"></div>
-    <div class="orb orb1"></div>
-    <div class="orb orb2"></div>
-    <div class="orb orb3"></div>
+    <div class="grid-bg" aria-hidden="true"></div>
+    <div class="orb orb1" aria-hidden="true"></div>
+    <div class="orb orb2" aria-hidden="true"></div>
+    <div class="orb orb3" aria-hidden="true"></div>
 
     <div class="container">
         <!-- Header -->
-        <header>
-            <div class="logo">BlackRoad</div>
-            <nav>
-                <a href="https://github.com/BlackRoad-Studio">GitHub</a>
+        <header role="banner">
+            <div class="logo" aria-label="BlackRoad">BlackRoad</div>
+            <nav aria-label="Main navigation">
+                <a href="https://github.com/BlackRoad-Studio" rel="noopener noreferrer">GitHub</a>
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
             </nav>
         </header>
 
         <!-- Hero -->
-        <section class="hero">
-            <h1>Video Studio</h1>
+        <main id="main-content">
+        <section class="hero" aria-labelledby="hero-heading">
+            <h1 id="hero-heading">Video Studio</h1>
             <p class="tagline">Video editing for creators, not engineers</p>
             <p class="problem">
                 Stop wrestling with confusing interfaces and expensive subscriptions. Video Studio gives you
@@ -403,41 +440,41 @@
             </p>
             <div class="cta-buttons">
                 <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
-                <a href="https://github.com/BlackRoad-Studio/video-studio" class="btn btn-secondary">View on GitHub</a>
+                <a href="https://github.com/BlackRoad-Studio/video-studio" class="btn btn-secondary" rel="noopener noreferrer">View on GitHub</a>
             </div>
         </section>
 
         <!-- Features -->
-        <section id="features" class="features">
-            <h2>Everything You Need to Create</h2>
+        <section id="features" class="features" aria-labelledby="features-heading">
+            <h2 id="features-heading">Everything You Need to Create</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">⏱️</div>
+                    <div class="feature-icon" aria-hidden="true">⏱️</div>
                     <h3>Timeline Editing</h3>
                     <p>Drag-and-drop timeline with unlimited tracks. Trim, split, move clips with precision. No render waiting.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎙️</div>
+                    <div class="feature-icon" aria-hidden="true">🎙️</div>
                     <h3>AI Auto-Captions</h3>
                     <p>Generate accurate captions in 50+ languages. Auto-sync, customize style, export SRT. Accessibility built in.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">✨</div>
+                    <div class="feature-icon" aria-hidden="true">✨</div>
                     <h3>Transitions & Effects</h3>
                     <p>100+ professional transitions, color grading presets, filters. Keyframe animation for custom effects.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎨</div>
+                    <div class="feature-icon" aria-hidden="true">🎨</div>
                     <h3>Title & Graphics</h3>
                     <p>Built-in title templates, lower thirds, motion graphics. Customize fonts, colors, animations.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎵</div>
+                    <div class="feature-icon" aria-hidden="true">🎵</div>
                     <h3>Audio Tools</h3>
                     <p>Multi-track audio mixing, noise reduction, EQ, compression. Royalty-free music library included.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">📤</div>
+                    <div class="feature-icon" aria-hidden="true">📤</div>
                     <h3>Export Anywhere</h3>
                     <p>Export to MP4, MOV, WebM. Presets for YouTube, Instagram, TikTok. Direct upload to platforms.</p>
                 </div>
@@ -445,8 +482,8 @@
         </section>
 
         <!-- Pricing -->
-        <section id="pricing" class="pricing">
-            <h2>Simple Pricing, No Tricks</h2>
+        <section id="pricing" class="pricing" aria-labelledby="pricing-heading">
+            <h2 id="pricing-heading">Simple Pricing, No Tricks</h2>
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <div class="plan-name">Free</div>
@@ -495,8 +532,8 @@
         </section>
 
         <!-- Comparison -->
-        <section class="comparison">
-            <h2>Video Studio vs. The Competition</h2>
+        <section class="comparison" aria-labelledby="comparison-heading">
+            <h2 id="comparison-heading">Video Studio vs. The Competition</h2>
             <div class="comparison-grid">
                 <div class="comparison-card">
                     <h3>Adobe Premiere Pro</h3>
@@ -538,21 +575,21 @@
         </section>
 
         <!-- Who it's for -->
-        <section class="features">
-            <h2>Built For Real Creators</h2>
+        <section class="features" aria-labelledby="for-creators-heading">
+            <h2 id="for-creators-heading">Built For Real Creators</h2>
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-icon">📱</div>
+                    <div class="feature-icon" aria-hidden="true">📱</div>
                     <h3>Content Creators</h3>
                     <p>YouTube, TikTok, Instagram. Fast editing with direct upload. AI captions for accessibility.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">🎓</div>
+                    <div class="feature-icon" aria-hidden="true">🎓</div>
                     <h3>Educators</h3>
                     <p>Create course videos, tutorials, lectures. Screen recording, annotations, captions included.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon">💼</div>
+                    <div class="feature-icon" aria-hidden="true">💼</div>
                     <h3>Small Businesses</h3>
                     <p>Marketing videos, product demos, testimonials. Professional results without hiring an agency.</p>
                 </div>
@@ -560,16 +597,17 @@
         </section>
 
         <!-- Final CTA -->
-        <section class="hero">
-            <h2>Start creating better videos today</h2>
+        <section class="hero" aria-labelledby="cta-heading">
+            <h2 id="cta-heading">Start creating better videos today</h2>
             <p class="tagline">14-day free trial. No credit card required.</p>
             <div class="cta-buttons">
-                <a href="#" class="btn btn-primary">Start Free Trial</a>
+                <a href="#pricing" class="btn btn-primary">Start Free Trial</a>
             </div>
         </section>
+        </main>
 
         <!-- Footer -->
-        <footer>
+        <footer role="contentinfo">
             <p>&copy; 2026 BlackRoad OS, Inc. All rights reserved.</p>
             <p>Built with Claude Code</p>
         </footer>
