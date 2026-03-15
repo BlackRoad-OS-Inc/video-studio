@@ -1,66 +1,41 @@
-# 🎬 Video Studio — Motion & Animation Library
+<div align="center">
 
-Part of **BlackRoad Studio** — production creative tools.
+<img src="https://images.blackroad.io/pixel-art/road-logo.png" alt="BlackRoad OS" width="80" />
 
-24 easing functions, a Timeline/keyframe engine, preset animations, and multi-format serializers (CSS, Web Animations API, Framer Motion).
+# video-studio
 
-## Features
+**Video Studio - Creator video editor with timeline editing, AI auto-captions, and effects. /mo.**
 
-- **24+ easing functions** — linear, quad, cubic, expo, sine, back, bounce, elastic, spring, cubic-bezier
-- **Physics spring** — mass/stiffness/damping spring simulation
-- **Custom cubic-bezier** — Newton-Raphson solver matching CSS `cubic-bezier()`
-- **Timeline engine** — keyframe-based with per-keyframe easing and property interpolation
-- **15 animation presets** — fade, slide, pop, shake, bounce, pulse, spin, wiggle, flip, blur-in, typewriter
-- **CSS @keyframes** — valid `@keyframes` + animation class output
-- **Web Animations API** — JS `element.animate()` format
-- **Framer Motion** — React variants with transitions
-- **SVG curve visualizer** — renders easing as SVG path
+[![BlackRoad OS](https://img.shields.io/badge/BlackRoad_OS-Pave_Tomorrow-FF2255?style=for-the-badge&labelColor=000000)](https://blackroad.io)
+[![License](https://img.shields.io/badge/License-Proprietary-FF6B2B?style=for-the-badge&labelColor=000000)](./LICENSE)
+[![Edge AI](https://img.shields.io/badge/Edge_AI-52_TOPS-00D4FF?style=for-the-badge&labelColor=000000)](https://github.com/BlackRoad-OS-Inc)
 
-## Quick start
+</div>
 
-```bash
-# List presets
-python src/motion_library.py presets
+<div align="center">
+<sub>Part of the <a href="https://blackroad.io">BlackRoad OS</a> ecosystem — sovereign edge AI infrastructure</sub>
+</div>
 
-# Get a preset as CSS
-python src/motion_library.py preset slide-up --css
+---
 
-# Get as Web Animations API JS
-python src/motion_library.py preset bounce --js
+## Overview
 
-# Get as Framer Motion variants
-python src/motion_library.py preset fade-in --framer
+Video Studio - Creator video editor with timeline editing, AI auto-captions, and effects. /mo.
 
-# Sample an easing curve
-python src/motion_library.py easing ease-out-elastic --steps 10
+## License
 
-# Export as SVG
-python src/motion_library.py easing spring --svg
-```
+**Proprietary** — Copyright © 2024–2026 [BlackRoad OS, Inc.](https://blackroad.io) All rights reserved.
 
-## Available presets
+Founder & CEO: **Alexa Louise Amundson** · Delaware C-Corp
 
-| Name | Duration | Description |
-|---|---|---|
-| `fade-in` | 300ms | Opacity fade in |
-| `fade-out` | 300ms | Opacity fade out |
-| `slide-up` | 400ms | Slide from below + fade |
-| `slide-down` | 400ms | Slide from above + fade |
-| `slide-in-left` | 350ms | Slide from left + fade |
-| `slide-in-right` | 350ms | Slide from right + fade |
-| `pop` | 300ms | Scale overshoot pop |
-| `shake` | 500ms | Horizontal error shake |
-| `bounce` | 800ms | Multi-bounce drop |
-| `pulse` | 1000ms | Infinite attention pulse |
-| `spin` | 1000ms | Continuous rotation |
-| `wiggle` | 600ms | Playful rotation |
-| `flip` | 600ms | 3D Y-axis flip |
-| `blur-in` | 400ms | Blur-to-focus entrance |
-| `typewriter` | 2000ms | Text width reveal |
+See [LICENSE](./LICENSE) for full terms.
 
-## Tests
+---
 
-```bash
-pip install pytest pytest-cov
-pytest tests/ -v --cov=src
-```
+<div align="center">
+
+**BlackRoad OS — Pave Tomorrow.**
+
+[blackroad.io](https://blackroad.io) · [GitHub](https://github.com/BlackRoad-OS-Inc) · [Brand](https://brand.blackroad.io)
+
+</div>
